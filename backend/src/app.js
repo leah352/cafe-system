@@ -61,9 +61,12 @@ app.get('/api/ping', (req, res) => {
 });
 
 // Backward compatibility - redirect /api/* to /api/v1/*
+// Skip rewrite when the path already starts with /v1 to avoid duplicating /v1 (e.g. /api/v1/...)
 app.use('/api', (req, res, next) => {
-  // req.path here is the path relative to the mount point ('/api'),
-  // so rebuild the target as '/api/v1' + req.path to ensure correct routing.
+  // req.path is the path relative to the mount point ('/api')
+  if (req.path && req.path.startsWith('/v1')) {
+    return next();
+  }
   const newPath = `/api/v1${req.path}`;
   req.url = newPath;
   next();
