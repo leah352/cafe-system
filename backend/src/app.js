@@ -71,7 +71,11 @@ app.use('/api/v1/staff', staffRoutes);
 app.use('/api/v1/reports', reportRoutes);
 
 // Debug routes (connectivity checks)
+// Mount debug routes under both /api/debug and /api/v1/debug so they remain
+// accessible after the /api -> /api/v1 rewrite. These are intended for
+// operational checks only and can be removed in production.
 app.use('/api/debug', debugRoutes);
+app.use('/api/v1/debug', debugRoutes);
 
 // API Documentation endpoint
 app.get('/api/docs', (req, res) => {
