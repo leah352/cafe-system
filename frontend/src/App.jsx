@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/queryClient';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { Toaster } from 'react-hot-toast';
 
-// Pages
-import Login from './pages/auth/Login';
-import Home from './pages/customer/Home';
-import Menu from './pages/customer/Menu';
-import Cart from './pages/customer/Cart';
-import Checkout from './pages/customer/Checkout';
-import TrackOrder from './pages/customer/TrackOrder';
-import AdminDashboard from './pages/admin/Dashboard';
-import DeliveryOrders from './pages/admin/DeliveryOrders';
-import StaffDashboard from './pages/staff/StaffDashboard';
+// Lazy load pages for better performance
+const Login = lazy(() => import('./pages/auth/Login'));
+const Home = lazy(() => import('./pages/customer/Home'));
+const Menu = lazy(() => import('./pages/customer/Menu'));
+const Cart = lazy(() => import('./pages/customer/Cart'));
+const Checkout = lazy(() => import('./pages/customer/Checkout'));
+const TrackOrder = lazy(() => import('./pages/customer/TrackOrder'));
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
+const DeliveryOrders = lazy(() => import('./pages/admin/DeliveryOrders'));
+const StaffDashboard = lazy(() => import('./pages/staff/StaffDashboard'));
 import Navbar from './components/common/Navbar';
+
+// Loading fallback component
+const Loading = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+    <div style={{ color: 'rgba(255,255,255,0.6)' }}>Loading...</div>
+  </div>
+);
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user, loading } = React.useContext(AuthContext);
@@ -39,9 +48,10 @@ const CustomerRoute = ({ children }) => {
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
           <style>{`
             @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -62,7 +72,8 @@ function App() {
           `}</style>
           <Navbar />
           <div className="container">
-            <Routes>
+            <Suspense fallback={<Loading />}>
+              <Routes>
               {/* Customer Routes */}
               <Route path="/" element={<CustomerRoute><Home /></CustomerRoute>} />
               <Route path="/menu" element={<CustomerRoute><Menu /></CustomerRoute>} />
@@ -102,11 +113,13 @@ function App() {
                 } 
               />
             </Routes>
+            </Suspense>
           </div>
           <Toaster position="top-right" />
         </Router>
       </CartProvider>
     </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

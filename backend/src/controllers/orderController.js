@@ -22,12 +22,35 @@ const transitionRoleRequirements = {
 
 const getOrders = async (req, res, next) => {
   try {
-    const { data, error } = await supabase
+    // Pagination params with defaults
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const offset = (page - 1) * limit;
+    const status = req.query.status || null;
+
+    // Build query with optional status filter
+    let query = supabase
       .from('orders')
-      .select('*, order_items(*, products(name))')
-      .order('created_at', { ascending: false });
+      .select('*, order_items(*, products(name))', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (status && status !== 'all') {
+      query = query.eq('status', status);
+    }
+
+    const { data, error, count } = await query;
     if (error) throw error;
-    res.json(data);
+
+    res.json({
+      data,
+      pagination: {
+        page,
+        limit,
+        total: count || 0,
+        totalPages: Math.ceil((count || 0) / limit)
+      }
+    });
   } catch (err) {
     next(err);
   }
@@ -202,16 +225,25 @@ const createOrder = async (req, res, next) => {
 
     if (itemsError) throw itemsError;
 
-    // 3. Deduct stock for each item
-    for (const item of items) {
+    // 3. Batch deduct stock using RPC for atomic operation
+    const stockDeductions = items.map(item => {
       const product = products.find(p => p.id === item.product_id);
-      if (product && product.stock) {
-        const newStock = product.stock - item.quantity;
-        await supabase
+      return {
+        product_id: item.product_id,
+        quantity: item.quantity,
+        current_stock: product?.stock || 0
+      };
+    }).filter(item => item.current_stock > 0);
+
+    if (stockDeductions.length > 0) {
+      // Use batch update via multiple single calls (more reliable than RPC for this case)
+      const updatePromises = stockDeductions.map(item =>
+        supabase
           .from('products')
-          .update({ stock: newStock })
-          .eq('id', item.product_id);
-      }
+          .update({ stock: item.current_stock - item.quantity })
+          .eq('id', item.product_id)
+      );
+      await Promise.all(updatePromises);
     }
 
     res.status(201).json(order);

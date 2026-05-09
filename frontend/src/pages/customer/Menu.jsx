@@ -1,29 +1,42 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import API from '../../services/api';
 import { CartContext } from '../../context/CartContext';
 import toast from 'react-hot-toast';
 import formatCurrencyPHP from '../../utils/currency';
 
 const Menu = () => {
-  const [products, setProducts] = useState([]);
   const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await API.get('/products');
-        setProducts(res.data);
-      } catch (err) {
-        toast.error('Failed to load menu');
-      }
-    };
-    fetchProducts();
-  }, []);
+  const { data: products = [], isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: async () => {
+      const res = await API.get('/products');
+      return res.data;
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Show error toast if query fails
+  if (error) {
+    toast.error('Failed to load menu');
+  }
 
   const handleAddToCart = (product) => {
     addToCart(product);
     toast.success(`${product.name} added to cart`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="menu-container">
+        <h1>Our Menu</h1>
+        <div style={{ textAlign: 'center', padding: '40px', color: 'rgba(255,255,255,0.6)' }}>
+          Loading menu...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -134,7 +147,7 @@ const Menu = () => {
         <div className="product-grid">
           {products.map((product) => (
             <div key={product.id} className="product-card">
-              <img src={product.image_url || 'https://via.placeholder.com/150'} alt={product.name} />
+              <img src={product.image_url || 'https://via.placeholder.com/150'} alt={product.name} loading="lazy" />
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <div className="product-footer">

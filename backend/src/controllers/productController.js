@@ -1,11 +1,43 @@
 const supabase = require('../config/supabase');
+const { cache, CACHE_TTL, getProductCacheKey } = require('../services/cache');
 
 const getProducts = async (req, res, next) => {
   try {
-    const { data, error } = await supabase
+    const { status, category_id, search } = req.query;
+    const cacheKey = getProductCacheKey(req.query);
+
+    // Check cache first
+    const cachedData = cache.get(cacheKey);
+    if (cachedData) {
+      return res.json(cachedData);
+    }
+
+    let query = supabase
       .from('products')
       .select('*, categories(name)');
+
+    // Filter by status (default to active only for performance)
+    if (status) {
+      query = query.eq('status', status);
+    } else {
+      // Default to active products only for better performance
+      query = query.neq('status', 'archived');
+    }
+
+    if (category_id) {
+      query = query.eq('category_id', category_id);
+    }
+
+    if (search) {
+      query = query.ilike('name', `%${search}%`);
+    }
+
+    const { data, error } = await query.order('name');
     if (error) throw error;
+
+    // Cache the result
+    cache.set(cacheKey, data, CACHE_TTL.PRODUCTS);
+
     res.json(data);
   } catch (err) {
     next(err);
@@ -19,6 +51,10 @@ const createProduct = async (req, res, next) => {
       .insert([req.body])
       .select();
     if (error) throw error;
+
+    // Invalidate products cache on any change
+    cache.flushAll();
+
     res.status(201).json(data[0]);
   } catch (err) {
     next(err);
@@ -33,6 +69,10 @@ const updateProduct = async (req, res, next) => {
       .eq('id', req.params.id)
       .select();
     if (error) throw error;
+
+    // Invalidate products cache on any change
+    cache.flushAll();
+
     res.json(data[0]);
   } catch (err) {
     next(err);
@@ -46,6 +86,10 @@ const deleteProduct = async (req, res, next) => {
       .delete()
       .eq('id', req.params.id);
     if (error) throw error;
+
+    // Invalidate products cache on any change
+    cache.flushAll();
+
     res.json({ message: 'Product deleted' });
   } catch (err) {
     next(err);
