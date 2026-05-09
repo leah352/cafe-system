@@ -52,6 +52,10 @@ app.use('/api/auth/login', authLimiter);
 app.use(express.json({ limit: '10kb' })); // Limit body size for security
 
 // Backward compatibility - redirect /api/* to /api/v1/*
+// Hotfix: also mount key public endpoints at /api/* to support callers using /api/* (pre-rewrite compatibility)
+app.use('/api/products', productRoutes);
+
+// Backward compatibility - redirect /api/* to /api/v1/*
 app.use('/api', (req, res, next) => {
   // req.path here is the path relative to the mount point ('/api'),
   // so rebuild the target as '/api/v1' + req.path to ensure correct routing.
@@ -59,8 +63,6 @@ app.use('/api', (req, res, next) => {
   req.url = newPath;
   next();
 });
-// Hotfix: also mount key public endpoints at /api/* to support callers using /api/* (pre-rewrite compatibility)
-app.use('/api/products', productRoutes);
 
 // API Version 1 Routes
 app.use('/api/v1/auth', authRoutes);
