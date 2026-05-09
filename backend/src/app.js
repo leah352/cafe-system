@@ -54,6 +54,8 @@ app.use(express.json({ limit: '10kb' })); // Limit body size for security
 // Backward compatibility - redirect /api/* to /api/v1/*
 // Hotfix: also mount key public endpoints at /api/* to support callers using /api/* (pre-rewrite compatibility)
 app.use('/api/products', productRoutes);
+// Hotfix: mount auth routes at /api/auth to support frontend calls to /api/auth/login
+app.use('/api/auth', authRoutes);
 
 // Lightweight ping endpoint to verify /api mount is reachable (placed before rewrite)
 app.get('/api/ping', (req, res) => {
