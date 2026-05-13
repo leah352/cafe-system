@@ -104,7 +104,8 @@ const getOrderLogs = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
   try {
-    // For multipart/form-data, fields may come in req.body as strings
+    // Prefer validated payload (from Joi) when available
+    const body = req.validatedBody || req.body || {};
     const {
       customer_name,
       items: itemsRaw,
@@ -118,11 +119,11 @@ const createOrder = async (req, res, next) => {
       delivery_fee: deliveryFeeRaw,
       notes,
       table_number
-    } = req.body;
+    } = body;
 
-    const items = typeof itemsRaw === 'string' ? JSON.parse(itemsRaw) : itemsRaw;
-    const total_amount = parseFloat(totalAmountRaw) || 0;
-    const delivery_fee = parseFloat(deliveryFeeRaw) || 0;
+    const items = Array.isArray(itemsRaw) ? itemsRaw : (typeof itemsRaw === 'string' ? JSON.parse(itemsRaw) : []);
+    const total_amount = Number(totalAmountRaw) || 0;
+    const delivery_fee = Number(deliveryFeeRaw) || 0;
 
     // Stock validation - check availability before creating order
     const productIds = items.map(item => item.product_id);

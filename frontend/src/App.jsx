@@ -13,6 +13,7 @@ const Menu = lazy(() => import('./pages/customer/Menu'));
 const Cart = lazy(() => import('./pages/customer/Cart'));
 const Checkout = lazy(() => import('./pages/customer/Checkout'));
 const TrackOrder = lazy(() => import('./pages/customer/TrackOrder'));
+const About = lazy(() => import('./pages/customer/About'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
 const DeliveryOrders = lazy(() => import('./pages/admin/DeliveryOrders'));
 const StaffDashboard = lazy(() => import('./pages/staff/StaffDashboard'));
@@ -77,6 +78,7 @@ function App() {
               {/* Customer Routes */}
               <Route path="/" element={<CustomerRoute><Home /></CustomerRoute>} />
               <Route path="/menu" element={<CustomerRoute><Menu /></CustomerRoute>} />
+              <Route path="/about" element={<CustomerRoute><About /></CustomerRoute>} />
               <Route path="/cart" element={<CustomerRoute><Cart /></CustomerRoute>} />
               <Route path="/checkout" element={<CustomerRoute><Checkout /></CustomerRoute>} />
               <Route path="/track" element={<CustomerRoute><TrackOrder /></CustomerRoute>} />

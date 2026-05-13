@@ -218,6 +218,7 @@ const Navbar = () => {
           {(!user || (user && !['admin', 'staff'].includes(user.role))) && (
             <>
               <Link to="/menu">Menu</Link>
+              <Link to="/about">About Us</Link>
               <Link to="/cart" className="cart-link">
                 <FaShoppingCart />
                 {cart.length > 0 && <span className="cart-count">{cart.length}</span>}

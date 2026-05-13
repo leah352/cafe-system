@@ -37,13 +37,29 @@ const schemas = {
     total_amount: Joi.number().min(0).required(),
     payment_method: Joi.string().valid('Cash', 'GCash', 'Maya', 'Card', 'Cash on Delivery').required(),
     order_type: Joi.string().valid('Pickup', 'Delivery', 'Dine-in').default('Pickup'),
-    address: Joi.string().allow('', null),
-    landmark: Joi.string().allow('', null),
-    contact_number: Joi.string().allow('', null),
+    address: Joi.when('order_type', {
+      is: 'Delivery',
+      then: Joi.string().min(3).required(),
+      otherwise: Joi.string().allow('', null)
+    }),
+    landmark: Joi.when('order_type', {
+      is: 'Delivery',
+      then: Joi.string().min(1).required(),
+      otherwise: Joi.string().allow('', null)
+    }),
+    contact_number: Joi.when('order_type', {
+      is: 'Delivery',
+      then: Joi.string().min(7).required(),
+      otherwise: Joi.string().allow('', null)
+    }),
     payment_reference: Joi.string().allow('', null),
     delivery_fee: Joi.number().min(0).default(0),
     notes: Joi.string().allow('', null),
-    table_number: Joi.string().allow('', null),
+    table_number: Joi.when('order_type', {
+      is: 'Dine-in',
+      then: Joi.string().min(1).required(),
+      otherwise: Joi.string().allow('', null)
+    }),
   }),
 
   updateOrderStatus: Joi.object({
