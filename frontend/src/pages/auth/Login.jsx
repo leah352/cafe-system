@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const user = await login(email, password);
+      const user = await login(username, password);
       toast.success(`Welcome back, ${user.name}!`);
       if (user.role === 'admin') navigate('/admin');
       else if (user.role === 'staff') navigate('/staff');
@@ -366,7 +366,7 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="brule-field">
-                <label className="brule-label" htmlFor="brule-email">Email address</label>
+                <label className="brule-label" htmlFor="brule-username">Username</label>
                 <div className="brule-input-wrap">
                   <span className="brule-input-icon" aria-hidden="true">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -375,14 +375,14 @@ const Login = () => {
                     </svg>
                   </span>
                   <input
-                    id="brule-email"
+                    id="brule-username"
                     className="brule-input"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@brulecafe.com"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="jireh"
                     required
-                    autoComplete="email"
+                    autoComplete="username"
                   />
                 </div>
               </div>

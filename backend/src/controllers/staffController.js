@@ -5,7 +5,7 @@ const getStaff = async (req, res, next) => {
   try {
     const { data, error } = await supabase
       .from('users')
-      .select('id, name, email, role, created_at')
+      .select('id, name, username, role, created_at')
       .eq('role', 'staff');
     if (error) throw error;
     res.json(data);
@@ -15,13 +15,13 @@ const getStaff = async (req, res, next) => {
 };
 
 const createStaff = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, username, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const { data, error } = await supabase
       .from('users')
-      .insert([{ name, email, password: hashedPassword, role: 'staff' }])
-      .select('id, name, email, role, created_at');
+      .insert([{ name, username, password: hashedPassword, role: 'staff' }])
+      .select('id, name, username, role, created_at');
     if (error) throw error;
     res.status(201).json(data[0]);
   } catch (err) {

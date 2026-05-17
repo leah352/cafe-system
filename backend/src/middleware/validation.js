@@ -3,7 +3,7 @@ const Joi = require('joi');
 // Validation schemas
 const schemas = {
   login: Joi.object({
-    email: Joi.string().email().required(),
+    username: Joi.string().min(1).required(),
     password: Joi.string().min(1).required(),
   }),
 

@@ -4,7 +4,7 @@
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
+    username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     role TEXT CHECK (role IN ('admin', 'staff')) NOT NULL,
     created_at TIMESTAMP
@@ -178,10 +178,15 @@ VALUES (
 -- Note: You should generate a real hash using bcrypt for the actual setup.
 -- This is just a placeholder. The setup guide will explain how to create the first admin.
 INSERT INTO
-    users (name, email, password, role)
+    users (
+        name,
+        username,
+        password,
+        role
+    )
 VALUES (
         'Admin User',
-        'admin@cafe.com',
-        '$2a$10$X7.6fH.6fH.6fH.6fH.6fH.6fH.6fH.6fH.6fH.6fH.6fH.6fH.',
+        'jireh',
+        '$2b$10$J2xFgumKfKYhxB3.Svrc1evZb8pKgFhpp615eID5wW0n8AAE.qaIm',
         'admin'
     );

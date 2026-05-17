@@ -23,16 +23,15 @@ paths:
             schema:
               type: object
               required:
-                - email
+                - username
                 - password
               properties:
-                email:
+                username:
                   type: string
-                  format: email
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: Login successful
           content:
             application/json:
@@ -48,11 +47,11 @@ paths:
                         type: string
                       name:
                         type: string
-                      email:
+                      username:
                         type: string
                       role:
                         type: string
-        '401':
+        "401":
           description: Invalid credentials
 
   /auth/refresh:
@@ -63,9 +62,9 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: Token refreshed successfully
-        '401':
+        "401":
           description: Invalid or expired token
 
   /products:
@@ -89,14 +88,14 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of products
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
+                  $ref: "#/components/schemas/Product"
 
   /orders:
     get:
@@ -121,7 +120,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of orders with pagination
 
     post:
@@ -133,9 +132,9 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CreateOrder'
+              $ref: "#/components/schemas/CreateOrder"
       responses:
-        '201':
+        "201":
           description: Order created successfully
 
   /orders/track/{order_number}:
@@ -150,9 +149,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Order details
-        '404':
+        "404":
           description: Order not found
 
 components:

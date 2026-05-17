@@ -37,7 +37,7 @@ const refreshToken = async (req, res, next) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
+        username: user.username,
         role: user.role
       }
     });
@@ -47,13 +47,13 @@ const refreshToken = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     const { data: user, error } = await supabase
       .from('users')
       .select('*')
-      .eq('email', email)
+      .eq('username', username)
       .single();
 
     if (error || !user) {
@@ -76,7 +76,7 @@ const login = async (req, res, next) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
+        username: user.username,
         role: user.role
       }
     });

@@ -20,8 +20,8 @@ router.get('/users', async (req, res, next) => {
   try {
     const { data, error } = await supabase
       .from('users')
-      .select('id, email, role')
-      .eq('email', 'admin@cafe.com')
+      .select('id, username, role')
+      .eq('username', 'jireh')
       .maybeSingle();
     if (error) return res.status(500).json({ ok: false, error: error.message, hint: error });
     if (!data) return res.json({ ok: true, found: false });
@@ -45,13 +45,13 @@ router.get('/users/password', async (req, res, next) => {
   try {
     const { data, error } = await supabase
       .from('users')
-      .select('email, password')
-      .eq('email', 'admin@cafe.com')
+      .select('username, password')
+      .eq('username', 'jireh')
       .maybeSingle();
 
     if (error) return res.status(500).json({ ok: false, error: error.message, hint: error });
     if (!data) return res.json({ ok: true, found: false });
-    return res.json({ ok: true, found: true, email: data.email, password_hash: data.password });
+    return res.json({ ok: true, found: true, username: data.username, password_hash: data.password });
   } catch (err) {
     return res.status(500).json({ ok: false, error: err.message, stack: err.stack });
   }

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 const StaffManagement = () => {
   const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', username: '', password: '' });
 
   const fetchStaff = async () => {
     setLoading(true);
@@ -27,11 +27,11 @@ const StaffManagement = () => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.password) return toast.error('Fill all fields');
+    if (!form.name || !form.username || !form.password) return toast.error('Fill all fields');
     try {
       const res = await API.post('/staff', form);
       setStaff((s) => [res.data, ...s]);
-      setForm({ name: '', email: '', password: '' });
+      setForm({ name: '', username: '', password: '' });
       toast.success('Staff created');
     } catch (err) {
       toast.error('Failed to create staff');
@@ -99,8 +99,8 @@ const StaffManagement = () => {
               <input name="name" value={form.name} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label>Email</label>
-              <input name="email" value={form.email} onChange={handleChange} type="email" />
+              <label>Username</label>
+              <input name="username" value={form.username} onChange={handleChange} type="text" />
             </div>
             <div className="form-group">
               <label>Password</label>
@@ -118,7 +118,7 @@ const StaffManagement = () => {
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Username</th>
                     <th>Role</th>
                     <th>Created</th>
                     <th>Action</th>
@@ -128,7 +128,7 @@ const StaffManagement = () => {
                   {staff.map((s) => (
                     <tr key={s.id}>
                       <td>{s.name}</td>
-                      <td>{s.email}</td>
+                      <td>{s.username}</td>
                       <td>{s.role}</td>
                       <td>{new Date(s.created_at).toLocaleString()}</td>
                       <td>
