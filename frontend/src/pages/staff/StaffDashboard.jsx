@@ -124,7 +124,7 @@ const StaffDashboard = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-        .staff-dashboard { min-height: calc(100vh - 72px); padding:28px 36px; background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%); color: rgba(255,255,255,0.92); font-family: 'DM Sans', sans-serif }
+        .staff-dashboard { min-height: calc(100vh - 72px); padding:28px 36px; background: linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%); color: var(--panel-contrast); font-family: 'DM Sans', sans-serif }
         .staff-dashboard h1 { font-family:'Playfair Display', serif; color:#e8c97a; margin-bottom:12px }
 
         .orders-list { 
@@ -152,6 +152,10 @@ const StaffDashboard = () => {
           .order-card{padding:14px;} 
           .staff-dashboard select { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; margin-bottom: 8px; background: rgba(255,255,255,0.04); color: white; border: 0.5px solid rgba(255,255,255,0.1); }
         }
+
+        /* Leaxie overrides: staff order cards match sign-in panel */
+        .order-card { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .order-card .order-header h3, .order-card .order-body p { color: var(--text-dark) !important; }
       `}</style>
 
       <div className="staff-dashboard">

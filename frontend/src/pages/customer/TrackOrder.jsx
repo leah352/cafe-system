@@ -86,8 +86,8 @@ const TrackOrder = () => {
         .track-order {
           min-height: calc(100vh - 72px);
           padding: 28px 36px;
-          background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%);
-          color: rgba(255,255,255,0.92);
+          background: linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%);
+          color: var(--panel-contrast);
           font-family: 'DM Sans', sans-serif;
         }
         .track-content {
@@ -116,6 +116,10 @@ const TrackOrder = () => {
           .track-order input[type="text"], .track-order input[type="search"] { width: 100%; box-sizing: border-box; }
           .modal-card{max-width:94%;} 
         }
+
+        /* Leaxie overrides: make order card match sign-in panel */
+        .track-order .order-card { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .track-order .order-card small, .track-order .order-card p { color: var(--text-dark) !important; }
       `}</style>
 
       <div className="track-order">

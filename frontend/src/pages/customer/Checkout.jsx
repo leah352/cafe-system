@@ -115,8 +115,8 @@ const Checkout = () => {
         .checkout-container {
           min-height: calc(100vh - 72px);
           padding: 28px 36px;
-          background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%);
-          color: rgba(255,255,255,0.92);
+          background: linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%);
+          color: var(--panel-contrast);
           font-family: 'DM Sans', sans-serif;
         }
         .checkout-content {
@@ -140,6 +140,10 @@ const Checkout = () => {
           .checkout-container{padding:20px 16px;} 
           .checkout-form{padding:16px;} 
         }
+
+        /* Leaxie overrides: checkout form uses sign-in beige panel */
+        .checkout-form { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .checkout-form label, .checkout-form .order-summary { color: var(--text-dark) !important; }
       `}</style>
 
       <div className="checkout-container">

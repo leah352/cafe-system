@@ -7,6 +7,14 @@
   --danger: #e74c3c;
   --success: #2ecc71;
   --warning: #f1c40f;
+  /* Leaxie dark theme tokens (safe additions) */
+  --leaxie-bg-dark: #0f0c09;
+  --leaxie-bg-dark-2: #13100d;
+  --leaxie-accent: #e8c97a;
+  --leaxie-accent-strong: #f0d88e;
+  --leaxie-accent-muted: rgba(232,201,122,0.6);
+  --leaxie-panel: rgba(232,201,122,0.06);
+  --leaxie-border: rgba(232,201,122,0.15);
 }
 
 body {

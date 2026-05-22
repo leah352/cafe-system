@@ -20,8 +20,8 @@ const Cart = () => {
             align-items: center;
             justify-content: center;
             gap: 16px;
-            background: linear-gradient(180deg, #0a0806 0%, #0f0c09 100%);
-            color: rgba(255,255,255,0.9);
+            background: linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 100%);
+            color: var(--panel-contrast);
             padding: 28px;
             font-family: 'DM Sans', sans-serif;
           }
@@ -54,7 +54,7 @@ const Cart = () => {
         .cart-container {
           min-height: calc(100vh - 72px);
           padding: 28px 36px;
-          background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%);
+          background: linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 100%);
           color: rgba(255,255,255,0.92);
           font-family: 'DM Sans', sans-serif;
         }
@@ -109,6 +109,10 @@ const Cart = () => {
           .cart-summary{flex-direction:column;align-items:flex-start;gap:16px;} 
           .btn-primary{width:100%;text-align:center;box-sizing:border-box;} 
         }
+
+        /* Leaxie overrides: cart item panels use sign-in beige and dark text */
+        .cart-item { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .cart-item .item-info h3, .cart-item .item-info p { color: var(--text-dark) !important; }
       `}</style>
 
       <div className="cart-container">

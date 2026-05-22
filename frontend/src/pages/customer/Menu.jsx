@@ -49,10 +49,10 @@ const Menu = () => {
 
         .menu-container {
           font-family: 'DM Sans', sans-serif;
-          background: linear-gradient(180deg, #0a0806 0%, #0f0c09 100%);
+          background: linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 100%);
           min-height: calc(100vh - 72px);
           padding: 28px 36px;
-          color: rgba(255,255,255,0.9);
+          color: var(--panel-contrast);
         }
         .menu-content {
           max-width: 1200px;
@@ -150,6 +150,11 @@ const Menu = () => {
           .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
           .btn-add { padding: 8px 10px; font-size: 13px; }
         }
+
+        /* Leaxie overrides: product cards use sign-in beige panel */
+        .product-card { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .product-card h3, .product-card p { color: var(--text-dark) !important; }
+        .product-card img { border: 0.5px solid var(--panel-border) !important; }
       `}</style>
 
       <div className="menu-container">

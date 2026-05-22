@@ -3,9 +3,14 @@ import API from '../services/api';
 
 // Theme constants for JSX-only styling consistency (safe, read-only export)
 export const THEME = {
-  background: '#0a0806',
-  panel: '#0f0c09',
-  gold: '#e8c97a',
+  background: 'var(--bg-900)',
+  background2: 'var(--bg-800)',
+  panel: 'var(--panel)',
+  panelContrast: 'var(--panel-contrast)',
+  textDark: 'var(--text-dark)',
+  textMuted: 'var(--text-muted)',
+  accent: 'var(--accent-warm)',
+  accentStrong: 'var(--accent-warm-2)'
 };
 
 export const AuthContext = createContext();

@@ -36,7 +36,7 @@ const Login = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #0a0806;
+          background: var(--bg-900);
           font-family: 'DM Sans', sans-serif;
           padding: 24px;
           box-sizing: border-box;
@@ -45,25 +45,32 @@ const Login = () => {
         .brule-card {
           display: flex;
           width: 100%;
-          max-width: 820px;
+          max-width: 900px;
           min-height: 560px;
           border-radius: 20px;
           overflow: hidden;
           box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+          /* Stack vertically so the Sign In panel appears centered and brand moves below */
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          padding: 18px 0;
         }
 
         /* ── Left Panel ── */
         .brule-left {
-          flex: 1;
+          flex: none;
+          width: 100%;
           background: #0f0c09;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 48px 36px;
+          padding: 28px 24px;
           position: relative;
-          border-right: 0.5px solid rgba(255,255,255,0.06);
+          border-top: 0.5px solid rgba(255,255,255,0.04);
           overflow: hidden;
+          order: 2; /* place below the form */
         }
 
         .brule-glow-top {
@@ -101,11 +108,49 @@ const Login = () => {
           justify-content: center;
         }
 
+        /* Logo animation: subtle float, rotating ring, and rising steam */
+        .logo-float { animation: bruleFloat 6s ease-in-out infinite; }
+        .logo-ring { transform-origin: 28px 28px; animation: bruleRotate 12s linear infinite; opacity: 0.95 }
+        .logo-steam { stroke: rgba(232,201,122,0.9); stroke-width: 1; fill: none; opacity: 0.9; }
+        .logo-steam.steam-1 { animation: steamRise 2.8s ease-in-out infinite; }
+        .logo-steam.steam-2 { animation: steamRise 3.6s ease-in-out 0.6s infinite; }
+        .logo-steam.steam-3 { animation: steamRise 4.2s ease-in-out 1.2s infinite; }
+
+        @keyframes bruleFloat {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+          100% { transform: translateY(0); }
+        }
+
+        @keyframes bruleRotate {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes steamRise {
+          0% { transform: translateY(6px); opacity: 0; }
+          30% { opacity: 0.9; }
+          100% { transform: translateY(-18px); opacity: 0; }
+        }
+
+        /* coffee cup animation */
+        .cup-svg { width: 120px; height: 80px; display:inline-block; }
+        .cup-steam .steamA, .cup-steam .steamB { stroke: var(--text-dark); opacity: 0.9; }
+        .cup-steam .steamA { animation: steamRise 2.4s ease-in-out infinite; }
+        .cup-steam .steamB { animation: steamRise 3.2s ease-in-out 0.4s infinite; }
+        .cup-svg #cup { transform-origin: center bottom; animation: cupFloat 6s ease-in-out infinite; }
+        @keyframes cupFloat { 0%{ transform: translateY(0);}50%{ transform: translateY(-6px);}100%{ transform: translateY(0);} }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .logo-float, .logo-ring, .logo-steam { animation: none !important; }
+        }
+
         .brule-name {
           font-family: 'Playfair Display', serif;
           font-size: 36px;
           font-weight: 700;
-          color: #e8c97a;
+          color: var(--text-dark);
           letter-spacing: 0.02em;
           line-height: 1.1;
           margin: 0 0 6px;
@@ -116,14 +161,14 @@ const Login = () => {
           font-weight: 400;
           letter-spacing: 0.26em;
           text-transform: uppercase;
-          color: rgba(232,201,122,0.45);
+          color: var(--text-muted);
           margin: 0;
         }
 
         .brule-divider {
           width: 40px;
           height: 1px;
-          background: rgba(232,201,122,0.2);
+          background: var(--text-muted);
           margin: 22px auto;
         }
 
@@ -131,7 +176,7 @@ const Login = () => {
           font-family: 'Playfair Display', serif;
           font-style: italic;
           font-size: 13.5px;
-          color: rgba(255,255,255,0.28);
+          color: var(--text-dark);
           line-height: 1.75;
           max-width: 190px;
           text-align: center;
@@ -142,16 +187,28 @@ const Login = () => {
           opacity: 0.16;
         }
 
+        /* Ensure SVG strokes/fills inside the sign-in panel use dark color for readability */
+        .brule-right svg, .brule-right svg * {
+          stroke: var(--text-dark) !important;
+          fill: var(--text-dark) !important;
+        }
+
         /* ── Right Panel ── */
         .brule-right {
-          width: 360px;
+          width: 640px;
+          max-width: calc(100% - 48px);
           flex-shrink: 0;
-          background: #13100d;
+          /* beige sign-in panel */
+          background: #f5ead6;
+          color: var(--text-dark);
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 52px 42px;
+          padding: 40px 40px;
           box-sizing: border-box;
+          margin: 0 auto;
+          border-radius: 12px;
+          order: 1; /* keep form on top */
         }
 
         .brule-form-eyebrow {
@@ -159,7 +216,7 @@ const Login = () => {
           font-weight: 500;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: #e8c97a;
+          color: var(--text-muted);
           margin: 0 0 10px;
         }
 
@@ -167,13 +224,13 @@ const Login = () => {
           font-family: 'Playfair Display', serif;
           font-size: 24px;
           font-weight: 400;
-          color: rgba(255,255,255,0.88);
-          margin: 0 0 36px;
+          color: var(--text-dark); /* dark text for readability on beige */
+          margin: 0 0 28px;
           line-height: 1.3;
         }
 
         .brule-form-title em {
-          color: #e8c97a;
+          color: var(--accent-warm);
           font-style: italic;
         }
 
@@ -184,10 +241,10 @@ const Login = () => {
         .brule-label {
           display: block;
           font-size: 10.5px;
-          font-weight: 500;
-          letter-spacing: 0.14em;
+          font-weight: 600;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.38);
+          color: var(--text-dark);
           margin-bottom: 8px;
         }
 
@@ -211,20 +268,20 @@ const Login = () => {
         .brule-input {
           width: 100%;
           box-sizing: border-box;
-          background: rgba(255,255,255,0.04);
-          border: 0.5px solid rgba(255,255,255,0.1);
+          background: rgba(0,0,0,0.04);
+          border: 1px solid rgba(0,0,0,0.08);
           border-radius: 10px;
           padding: 13px 14px 13px 42px;
           font-family: 'DM Sans', sans-serif;
           font-size: 14px;
-          color: rgba(255,255,255,0.85);
+          color: var(--text-dark); /* dark text on beige */
           outline: none;
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.18s, background 0.18s;
         }
 
         .brule-input:focus {
-          border-color: rgba(232,201,122,0.45);
-          background: rgba(232,201,122,0.04);
+          border-color: rgba(139,94,60,0.55);
+          background: rgba(255,255,255,0.9);
         }
 
         /* ULTIMATE AUTOFILL FIX FOR ANDROID/CHROME */
@@ -242,32 +299,33 @@ const Login = () => {
         }
 
         .brule-input::placeholder {
-          color: rgba(255,255,255,0.16);
+          color: var(--text-muted);
         }
+
 
         .brule-btn {
           width: 100%;
           margin-top: 10px;
           padding: 14px 24px;
-          background: #e8c97a;
+          background: #8b5e3c; /* darker warm button on beige */
           border: none;
           border-radius: 10px;
           font-family: 'DM Sans', sans-serif;
           font-size: 12.5px;
-          font-weight: 500;
-          letter-spacing: 0.14em;
+          font-weight: 600;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #0f0c09;
+          color: #fff3ea;
           cursor: pointer;
           position: relative;
           overflow: hidden;
-          transition: background 0.2s, transform 0.1s, opacity 0.2s;
+          transition: background 0.18s, transform 0.1s, opacity 0.18s;
           -webkit-appearance: none;
           appearance: none;
         }
 
         .brule-btn:hover:not(:disabled) {
-          background: #f0d88e;
+          background: #a06a46;
         }
 
         .brule-btn:active:not(:disabled) {
@@ -297,12 +355,25 @@ const Login = () => {
         }
 
         .brule-footer {
-          margin-top: 26px;
+          margin-top: 18px;
           font-size: 12px;
-          color: rgba(255,255,255,0.2);
+          color: var(--text-muted);
           text-align: center;
           line-height: 1.6;
         }
+
+        /* Ensure all text inside the sign-in panel defaults to dark */
+        /* Ensure all text inside the sign-in panel defaults to dark */
+        .brule-right, .brule-right * { color: var(--text-dark) !important; }
+
+        /* Force SVG strokes/fills inside the sign-in panel to dark for contrast */
+        .brule-right svg, .brule-right svg * {
+          stroke: var(--text-dark) !important;
+          fill: var(--text-dark) !important;
+        }
+
+        /* Placeholder readability */
+        .brule-right .brule-input::placeholder { color: var(--text-muted) !important; }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
@@ -315,50 +386,44 @@ const Login = () => {
       `}</style>
 
       <div className="brule-root">
-        <div className="brule-card">
+          <div className="brule-card">
 
-          {/* ── Left Brand Panel ── */}
-          <div className="brule-left">
-            <div className="brule-glow-top" />
-            <div className="brule-glow-bottom" />
-            <div className="brule-brand">
-
-              {/* Coffee cup icon */}
-              <div className="brule-icon">
-                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="28" cy="28" r="27" stroke="#e8c97a" strokeWidth="0.7" strokeOpacity="0.35" />
-                  <circle cx="28" cy="28" r="20" stroke="#e8c97a" strokeWidth="0.5" strokeOpacity="0.18" />
-                  <ellipse cx="28" cy="28" rx="11" ry="15" stroke="#e8c97a" strokeWidth="1.3" strokeOpacity="0.82" />
-                  <path d="M28 13 Q21 20 21 28 Q21 36 28 43" stroke="#e8c97a" strokeWidth="1.1" strokeOpacity="0.55" fill="none" />
-                  <circle cx="28" cy="28" r="2.8" fill="#e8c97a" fillOpacity="0.45" />
-                </svg>
-              </div>
-
-              <h1 className="brule-name">Brûlé</h1>
-              <p className="brule-subtitle">Café Management</p>
-              <div className="brule-divider" />
-              <p className="brule-tagline">
-                Where every order is an art — and every shift runs smooth.
-              </p>
-
-              {/* Decorative cup art */}
-              <div className="brule-art">
-                <svg width="150" height="86" viewBox="0 0 150 86" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <ellipse cx="75" cy="62" rx="50" ry="9" stroke="#e8c97a" strokeWidth="0.8" />
-                  <path d="M33 62 L25 28 L125 28 L117 62" stroke="#e8c97a" strokeWidth="0.8" />
-                  <rect x="25" y="23" width="100" height="8" rx="4" stroke="#e8c97a" strokeWidth="0.8" />
-                  <path d="M58 23 Q62 9 75 7 Q88 9 92 23" stroke="#e8c97a" strokeWidth="0.8" fill="none" />
-                  <path d="M63 23 Q66 15 75 13 Q84 15 87 23" stroke="#e8c97a" strokeWidth="0.5" fill="none" opacity="0.5" />
-                  <path d="M61 11 Q59 5 61 1" stroke="#e8c97a" strokeWidth="0.6" opacity="0.45" />
-                  <path d="M75 9 Q73 3 75 0" stroke="#e8c97a" strokeWidth="0.6" opacity="0.45" />
-                  <path d="M89 11 Q91 5 89 1" stroke="#e8c97a" strokeWidth="0.6" opacity="0.45" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Right Form Panel ── */}
+          {/* Combined Brand + Form Panel: brand header merged into sign-in panel */}
           <div className="brule-right">
+            <div className="brule-header" style={{ textAlign: 'center', marginBottom: 18 }}>
+              <div className="brule-icon logo-float" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g className="logo-ring">
+                    <circle cx="28" cy="28" r="27" stroke="#8b5e3c" strokeWidth="0.7" strokeOpacity="0.18" />
+                  </g>
+                  <ellipse cx="28" cy="30" rx="12" ry="9" fill="#8b5e3c" />
+                  {/* coffee bean detail */}
+                  <path d="M28 23 Q24 28 28 33 Q32 28 28 23 Z" fill="#f5ead6" opacity="0.95" />
+                  <g transform="translate(0,-6)">
+                    <path className="logo-steam steam-1" d="M24 14 Q26 8 28 10 Q30 12 32 8" strokeLinecap="round" />
+                    <path className="logo-steam steam-2" d="M30 14 Q32 9 34 11 Q36 13 38 9" strokeLinecap="round" />
+                  </g>
+                </svg>
+              </div>
+              {/* animated coffee cup under logo */}
+              <div>
+                <svg className="cup-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <g id="cup">
+                    <path d="M20 48 C22 34, 98 34, 100 48 L100 56 C100 62, 96 66, 60 66 C24 66, 20 62, 20 56 Z" fill="#8b5e3c" />
+                    <rect x="26" y="28" width="68" height="24" rx="6" fill="#f5ead6" />
+                    <path className="cup-handle" d="M102 44 C112 44,112 56,102 56" stroke="#8b5e3c" strokeWidth="4" fill="none" strokeLinecap="round" />
+                  </g>
+                  <g className="cup-steam" transform="translate(38,6)" stroke="#8b5e3c" strokeWidth="1.2" fill="none" strokeLinecap="round">
+                    <path className="steamA" d="M4 18 Q6 6 14 10 Q22 14 24 4" />
+                    <path className="steamB" d="M24 18 Q26 8 34 12 Q42 16 44 6" />
+                  </g>
+                </svg>
+              </div>
+              <h1 className="brule-name">Leaxie Cafe</h1>
+              <p className="brule-subtitle">Cafe Management</p>
+              <div className="brule-divider" />
+              <p className="brule-tagline">Sip. Smile. Repeat.</p>
+            </div>
             <p className="brule-form-eyebrow">Staff Portal</p>
             <h2 className="brule-form-title">
               Sign in to your<br /><em>workspace</em>
@@ -418,7 +483,7 @@ const Login = () => {
             </form>
 
             <p className="brule-footer">
-              Brûlé Café Management System &copy; {new Date().getFullYear()}
+              Leaxie Cafe Management System &copy; {new Date().getFullYear()}
             </p>
           </div>
 

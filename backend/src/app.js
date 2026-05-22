@@ -29,11 +29,18 @@ const corsOptions = {
   origin: function (origin, callback) {
     // allow requests with no origin (like mobile apps, curl, server-to-server)
     if (!origin) return callback(null, true);
+    // allow explicit configured origins
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
-    } else {
-      return callback(new Error('CORS policy: Origin not allowed'));
     }
+    // during local development allow any localhost:port origin
+    try {
+      const url = new URL(origin);
+      if (url.hostname === 'localhost' || url.hostname.endsWith('.localhost')) return callback(null, true);
+    } catch (e) {
+      // ignore parse errors and fall through to default deny
+    }
+    return callback(new Error('CORS policy: Origin not allowed'));
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
@@ -80,6 +87,15 @@ app.use('/api/v1/debug', debugRoutes);
 // API Documentation endpoint
 app.get('/api/docs', (req, res) => {
   res.sendFile(path.join(__dirname, 'docs', 'openapi.yaml'));
+});
+
+// Serve the frontend production build (if present)
+const frontendDist = path.join(__dirname, '..', '..', 'frontend', 'dist');
+app.use(express.static(frontendDist));
+
+// Serve index.html for any non-API route (SPA support)
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(frontendDist, 'index.html'));
 });
 
 // Health check endpoint

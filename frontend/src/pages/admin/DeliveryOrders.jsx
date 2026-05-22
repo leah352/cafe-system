@@ -151,7 +151,7 @@ const DeliveryOrders = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-        .admin-section { min-height: calc(100vh - 72px); padding: 28px 36px; background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%); color: rgba(255,255,255,0.92); font-family: 'DM Sans', sans-serif; }
+        .admin-section { min-height: calc(100vh - 72px); padding: 28px 36px; background: linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%); color: var(--panel-contrast); font-family: 'DM Sans', sans-serif; }
         .admin-section h2 { font-family: 'Playfair Display', serif; color: #e8c97a; margin-bottom:12px }
 
         .admin-filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; align-items: center; }
@@ -180,6 +180,9 @@ const DeliveryOrders = () => {
           .admin-filters select, .admin-filters input { min-width: 100%; box-sizing: border-box; }
           .admin-filters button { width: 100%; }
         }
+        /* Leaxie overrides: make order cards use beige panel and dark text */
+        .order-card { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .order-card svg, .order-card svg * { stroke: var(--text-dark) !important; fill: var(--text-dark) !important; }
       `}</style>
 
       <div className="admin-section">

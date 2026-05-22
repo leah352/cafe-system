@@ -56,8 +56,7 @@ function App() {
           <style>{`
             @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-            :root { --bg-root: #0a0806; --bg-panel: #0f0c09; --gold: #e8c97a; --muted-gold: rgba(232,201,122,0.7); }
-
+            /* Use global theme tokens from theme.css for consistent branding */
             .container {
               max-width: 1200px;
               margin: 24px auto;
@@ -65,10 +64,10 @@ function App() {
               box-sizing: border-box;
             }
 
-            body { background: linear-gradient(180deg, var(--bg-root), var(--bg-panel)); color: rgba(255,255,255,0.9); font-family: 'DM Sans', sans-serif; }
+            body { background: linear-gradient(180deg, var(--bg-900), var(--bg-800)); color: var(--panel-contrast); font-family: 'DM Sans', sans-serif; }
 
             /* small helpers used across pages */
-            .btn-primary { padding: 8px 12px; background: linear-gradient(135deg,var(--gold),#f0d88e); border-radius:8px; border:none; color:#0f0c09; cursor:pointer }
+            .btn-primary { padding: 8px 12px; background: linear-gradient(135deg,var(--accent-warm),var(--accent-warm-2)); border-radius:8px; border:none; color:var(--panel-contrast); cursor:pointer }
             .btn-danger { padding:8px 12px; background: rgba(255,107,107,0.12); border-radius:8px; border:0.5px solid rgba(255,107,107,0.18); color:#ff6b6b }
           `}</style>
           <Navbar />

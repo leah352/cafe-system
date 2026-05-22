@@ -20,9 +20,9 @@ const Navbar = () => {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
         .navbar {
-          background: linear-gradient(135deg, #0f0c09 0%, #13100d 100%);
-          border-bottom: 0.5px solid rgba(232,201,122,0.15);
-          padding: 16px 32px;
+          background: var(--panel);
+          border-bottom: 0.5px solid var(--panel-border);
+          padding: 12px 28px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -30,14 +30,13 @@ const Navbar = () => {
           position: sticky;
           top: 0;
           z-index: 1000;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.3);
         }
 
         .nav-brand a {
           font-family: 'Playfair Display', serif;
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 700;
-          color: #e8c97a;
+          color: var(--text-dark);
           text-decoration: none;
           letter-spacing: 0.02em;
           transition: all 0.2s;
@@ -47,7 +46,7 @@ const Navbar = () => {
         }
 
         .nav-brand a:hover {
-          color: #f0d88e;
+          color: var(--leaxie-accent-strong);
           transform: scale(1.05);
         }
 
@@ -62,7 +61,7 @@ const Navbar = () => {
           font-weight: 500;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: rgba(232,201,122,0.7);
+          color: var(--text-dark);
           text-decoration: none;
           transition: all 0.2s;
           position: relative;
@@ -76,12 +75,12 @@ const Navbar = () => {
           left: 0;
           width: 0;
           height: 1px;
-          background: #e8c97a;
+          background: var(--accent-warm);
           transition: width 0.2s;
         }
 
         .nav-links a:hover {
-          color: #e8c97a;
+          color: var(--accent-warm-2);
         }
 
         .nav-links a:hover::after {
@@ -98,8 +97,8 @@ const Navbar = () => {
           border-radius: 8px;
           background: transparent;
           transition: all 0.18s;
-          color: rgba(232,201,122,0.95);
-          border: 1px solid rgba(232,201,122,0.06);
+          color: var(--accent-warm);
+          border: 1px solid var(--panel-border);
         }
 
         .cart-link svg {
@@ -109,17 +108,17 @@ const Navbar = () => {
         }
 
         .cart-link:hover {
-          background: rgba(232,201,122,0.06);
+          background: var(--panel-contrast);
           transform: translateY(-1px);
-          box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+          box-shadow: 0 6px 18px rgba(0,0,0,0.08);
         }
 
         .cart-count {
           position: absolute;
           top: -6px;
           right: -6px;
-          background: #e8c97a;
-          color: #0f0c09;
+          background: var(--accent-warm);
+          color: var(--panel-contrast);
           min-width: 18px;
           height: 18px;
           padding: 0 5px;
@@ -129,8 +128,7 @@ const Navbar = () => {
           justify-content: center;
           font-size: 11px;
           font-weight: 700;
-          border: 2px solid rgba(15,12,9,0.95);
-          box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+          border: 2px solid var(--panel-contrast);
         }
 
         .user-info {
@@ -138,21 +136,21 @@ const Navbar = () => {
           align-items: center;
           gap: 8px;
           font-size: 12px;
-          color: rgba(232,201,122,0.7);
+          color: var(--text-dark);
           padding: 8px 16px;
-          border-left: 0.5px solid rgba(232,201,122,0.15);
+          border-left: 0.5px solid var(--panel-border);
         }
 
         .logout-btn {
-          background: rgba(232,201,122,0.15);
-          border: 0.5px solid rgba(232,201,122,0.3);
+          background: var(--panel-contrast);
+          border: 0.5px solid var(--panel-border);
           border-radius: 6px;
           width: 32px;
           height: 32px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #e8c97a;
+          color: var(--text-dark);
           cursor: pointer;
           transition: all 0.2s;
           font-size: 14px;
@@ -211,7 +209,7 @@ const Navbar = () => {
 
       <nav className="navbar">
         <div className="nav-brand">
-          <Link to="/">☕ BrewPoint</Link>
+          <Link to="/">☕ Leaxie</Link>
         </div>
         <div className="nav-links">
           {/* Show Menu/Cart only to customers (unauthenticated users or users without admin/staff roles) */}

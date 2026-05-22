@@ -54,7 +54,7 @@ const StaffManagement = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-        .admin-section { min-height: calc(100vh - 72px); padding:28px 36px; background: linear-gradient(180deg,#0a0806 0%, #0f0c09 100%); color: rgba(255,255,255,0.92); font-family: 'DM Sans', sans-serif }
+        .admin-section { min-height: calc(100vh - 72px); padding:28px 36px; background: linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%); color: var(--panel-contrast); font-family: 'DM Sans', sans-serif }
         .admin-section h2 { font-family:'Playfair Display', serif; color:#e8c97a; margin-bottom:12px }
 
         .staff-grid { display:grid; grid-template-columns: 320px 1fr; gap:20px }
@@ -86,6 +86,10 @@ const StaffManagement = () => {
 
         @media (max-width:900px){ .staff-grid{grid-template-columns:1fr; gap: 24px;} }
         @media (max-width:640px){ .admin-section{padding: 24px 16px;} .staff-form{padding: 20px;} }
+
+        /* Leaxie overrides: staff management panels use beige sign-in panel */
+        .staff-form, .staff-list { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .staff-form h3, .staff-list h3 { color: var(--leaxie-accent) !important; }
       `}</style>
 
       <section className="admin-section">

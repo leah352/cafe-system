@@ -1,0 +1,62 @@
+/* Global theme variables for Leaxie */
+:root{
+  --bg-900: #071826; /* deep teal */
+  --bg-800: #093b4a;
+  --panel: #f5ead6; /* beige panel */
+  --panel-contrast: #fff3ea;
+  --text-dark: #2b1e18; /* readable on beige */
+  --text-muted: rgba(43,30,24,0.6);
+  --accent-warm: #8b5e3c; /* button */
+  --accent-warm-2: #a06a46;
+  --brand-light: #ffd8cc;
+  --focus-ring: rgba(139,94,60,0.18);
+  --glass: rgba(255,255,255,0.03);
+
+  /* Backwards-compatible tokens used across the app */
+  --leaxie-panel: var(--panel);
+  --leaxie-border: rgba(43,30,24,0.12);
+  --panel-border: rgba(43,30,24,0.08);
+  --panel-text: var(--text-dark);
+  --panel-accent: var(--accent-warm);
+}
+
+/* Base resets for font-smoothing and body */
+html,body,#root{
+  height:100%;
+}
+body{
+  background: linear-gradient(180deg,var(--bg-900),var(--bg-800));
+  color: var(--panel-contrast);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  margin:0;
+  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Utility: apply panel background */
+.leaxie-panel{
+  background: var(--panel);
+  color: var(--text-dark);
+}
+
+/* Accessible focus */
+.leaxie-focus:focus{
+  box-shadow: 0 0 0 4px var(--focus-ring);
+  outline: none;
+}
+
+/* Default panel styling: use the sign-in panel color across app panels */
+.panel {
+  background: var(--panel);
+  color: var(--panel-text);
+  border: 0.5px solid var(--panel-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel .panel-header {
+  background: rgba(0,0,0,0.02);
+  border-bottom: 0.5px solid var(--panel-border);
+}
+
+.panel .panel-body { padding: 12px; }

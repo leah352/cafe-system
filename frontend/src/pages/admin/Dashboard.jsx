@@ -106,13 +106,13 @@ const AdminDashboard = () => {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
         body {
-          background: #0a0806;
+          background: var(--bg-900);
           font-family: 'DM Sans', sans-serif;
         }
 
         .admin-dashboard {
           min-height: 100vh;
-          background: #0a0806;
+          background: var(--bg-900);
           padding: 48px 24px;
           font-family: 'DM Sans', sans-serif;
         }
@@ -125,14 +125,14 @@ const AdminDashboard = () => {
           font-family: 'Playfair Display', serif;
           font-size: 42px;
           font-weight: 700;
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           letter-spacing: 0.02em;
           margin: 0 0 8px;
         }
 
         .dashboard-header p {
           font-size: 13px;
-          color: rgba(232,201,122,0.6);
+          color: var(--leaxie-accent-muted);
           letter-spacing: 0.05em;
           margin: 0;
         }
@@ -146,8 +146,34 @@ const AdminDashboard = () => {
           flex-wrap: wrap;
         }
 
+        /* New two-column layout */
+        .dashboard-grid {
+          display: grid;
+          grid-template-columns: 320px 1fr;
+          gap: 24px;
+          align-items: start;
+        }
+
+        .sidebar {
+          position: sticky;
+          top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        .sidebar-top { display:flex; justify-content: center }
+
+        .sidebar-delivery { width:100%; justify-content:center }
+
+        .stats-vertical { display: flex; flex-direction: column; gap: 12px }
+
+        .stat-card.small { padding: 18px; border-radius: 10px }
+
+        .mainpanel { min-width: 0; }
+
         .btn-delivery {
-          background: #e8c97a;
+          background: var(--leaxie-accent);
           border: none;
           border-radius: 10px;
           padding: 12px 24px;
@@ -156,7 +182,7 @@ const AdminDashboard = () => {
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: #0f0c09;
+          color: var(--leaxie-bg-dark);
           cursor: pointer;
           transition: all 0.2s;
           text-decoration: none;
@@ -166,7 +192,7 @@ const AdminDashboard = () => {
         }
 
         .btn-delivery:hover {
-          background: #f0d88e;
+          background: var(--leaxie-accent-strong);
           transform: translateY(-2px);
         }
 
@@ -178,8 +204,8 @@ const AdminDashboard = () => {
         }
 
         .stat-card {
-          background: linear-gradient(135deg, rgba(232,201,122,0.08) 0%, rgba(232,201,122,0.04) 100%);
-          border: 0.5px solid rgba(232,201,122,0.15);
+          background: var(--leaxie-panel);
+          border: 0.5px solid var(--leaxie-border);
           border-radius: 12px;
           padding: 28px;
           position: relative;
@@ -193,7 +219,7 @@ const AdminDashboard = () => {
           right: -50%;
           width: 200px;
           height: 200px;
-          background-color: rgba(232,201,122,0.05);
+          background-color: var(--leaxie-panel);
           border-radius: 50%;
           pointer-events: none;
         }
@@ -208,14 +234,14 @@ const AdminDashboard = () => {
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: rgba(232,201,122,0.6);
+          color: var(--leaxie-accent-muted);
           margin: 0 0 8px;
         }
 
         .stat-value {
           font-size: 28px;
           font-weight: 700;
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           margin: 0;
           letter-spacing: 0.01em;
         }
@@ -228,21 +254,21 @@ const AdminDashboard = () => {
           font-family: 'Playfair Display', serif;
           font-size: 28px;
           font-weight: 700;
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           letter-spacing: 0.02em;
           margin: 0 0 12px;
         }
 
         .admin-section p {
           font-size: 13px;
-          color: rgba(232,201,122,0.6);
+          color: var(--leaxie-accent-muted);
           letter-spacing: 0.05em;
           margin: 0 0 28px;
         }
 
         .product-form {
-          background: linear-gradient(135deg, rgba(232,201,122,0.08) 0%, rgba(232,201,122,0.04) 100%);
-          border: 0.5px solid rgba(232,201,122,0.15);
+          background: var(--leaxie-panel);
+          border: 0.5px solid var(--leaxie-border);
           border-radius: 12px;
           padding: 32px;
           margin-bottom: 28px;
@@ -251,7 +277,7 @@ const AdminDashboard = () => {
         .product-form h3 {
           font-family: 'Playfair Display', serif;
           font-size: 18px;
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           margin: 0 0 20px;
           font-weight: 700;
           letter-spacing: 0.01em;
@@ -275,7 +301,7 @@ const AdminDashboard = () => {
           font-weight: 500;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: rgba(232,201,122,0.5);
+          color: var(--leaxie-accent-muted);
         }
 
         .form-input,
@@ -295,7 +321,7 @@ const AdminDashboard = () => {
 
         .form-input:focus,
         .form-select:focus {
-          border-color: rgba(232,201,122,0.45);
+          border-color: var(--leaxie-accent-muted);
           background: rgba(232,201,122,0.04);
         }
 
@@ -324,17 +350,17 @@ const AdminDashboard = () => {
         }
 
         .btn-submit {
-          background: #e8c97a;
-          color: #0f0c09;
+          background: var(--leaxie-accent);
+          color: var(--leaxie-bg-dark);
         }
 
         .btn-submit:hover {
-          background: #f0d88e;
+          background: var(--leaxie-accent-strong);
         }
 
         .btn-cancel {
           background: rgba(232,201,122,0.1);
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           border: 0.5px solid rgba(232,201,122,0.3);
         }
 
@@ -346,7 +372,7 @@ const AdminDashboard = () => {
           width: 100%;
           overflow-x: auto;
           border-radius: 12px;
-          border: 0.5px solid rgba(232,201,122,0.15);
+          border: 0.5px solid var(--leaxie-border);
           background: linear-gradient(135deg, rgba(232,201,122,0.04) 0%, rgba(232,201,122,0.02) 100%);
         }
 
@@ -357,9 +383,15 @@ const AdminDashboard = () => {
         }
 
         .admin-table thead {
-          background: rgba(232,201,122,0.08);
-          border-bottom: 0.5px solid rgba(232,201,122,0.15);
+          background: var(--leaxie-panel);
+          border-bottom: 0.5px solid var(--leaxie-border);
         }
+
+        /* Leaxie overrides: ensure admin panels/cards use beige panel and dark text */
+        .stat-card, .product-form, .table-responsive, .admin-table, .admin-table thead, .admin-table td { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
+        .stat-card { border-radius: 12px !important; }
+        .product-form { border-radius: 12px !important; }
+        .admin-table thead, .admin-table td { color: var(--leaxie-accent) !important; }
 
         .admin-table th {
           padding: 16px;
@@ -367,7 +399,7 @@ const AdminDashboard = () => {
           font-weight: 600;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: #e8c97a;
+          color: var(--leaxie-accent);
           text-align: left;
         }
 
@@ -375,7 +407,7 @@ const AdminDashboard = () => {
           padding: 16px;
           font-size: 14px;
           color: rgba(255,255,255,0.75);
-          border-bottom: 0.5px solid rgba(232,201,122,0.08);
+          border-bottom: 0.5px solid var(--leaxie-panel);
         }
 
         .admin-table tbody tr:hover {
@@ -403,7 +435,7 @@ const AdminDashboard = () => {
         }
 
         .btn-edit {
-          color: #e8c97a;
+          color: var(--leaxie-accent);
         }
 
         .btn-edit:hover {
@@ -424,13 +456,14 @@ const AdminDashboard = () => {
         .empty-state {
           text-align: center;
           padding: 48px 24px;
-          color: rgba(232,201,122,0.5);
+          color: var(--leaxie-accent-muted);
           font-size: 14px;
         }
 
         @media (max-width: 768px) {
           .admin-dashboard { padding: 24px 16px; }
           .stats-grid { grid-template-columns: 1fr; }
+          .dashboard-grid { grid-template-columns: 1fr; }
           .dashboard-header h1 { font-size: 32px; }
           .form-wrapper { grid-template-columns: 1fr; }
           .btn-delivery { width: 100%; justify-content: center; }
@@ -445,34 +478,37 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="dashboard-nav">
-          <div></div>
-          <Link to="/admin/deliveries" className="btn-delivery">
-            🚚 Delivery Orders
-          </Link>
-        </div>
+        <div className="dashboard-grid">
+          <aside className="sidebar">
+            <div className="sidebar-top">
+              <Link to="/admin/deliveries" className="btn-delivery sidebar-delivery">
+                🚚 Delivery Orders
+              </Link>
+            </div>
 
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-content">
-              <p className="stat-label">Total Sales</p>
-              <p className="stat-value">{formatCurrencyPHP(stats.totalSales)}</p>
+            <div className="stats-vertical">
+              <div className="stat-card small">
+                <div className="stat-content">
+                  <p className="stat-label">Total Sales</p>
+                  <p className="stat-value">{formatCurrencyPHP(stats.totalSales)}</p>
+                </div>
+              </div>
+              <div className="stat-card small">
+                <div className="stat-content">
+                  <p className="stat-label">Total Orders</p>
+                  <p className="stat-value">{stats.orderCount}</p>
+                </div>
+              </div>
+              <div className="stat-card small">
+                <div className="stat-content">
+                  <p className="stat-label">Products</p>
+                  <p className="stat-value">{products.length}</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-content">
-              <p className="stat-label">Total Orders</p>
-              <p className="stat-value">{stats.orderCount}</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-content">
-              <p className="stat-label">Total Products</p>
-              <p className="stat-value">{products.length}</p>
-            </div>
-          </div>
-        </div>
+          </aside>
 
+          <main className="mainpanel">
         <section className="admin-section">
           <h2>Product Management</h2>
           <p>Add, edit, and manage your product inventory</p>
@@ -626,6 +662,8 @@ const AdminDashboard = () => {
         </section>
 
         <StaffManagement />
+          </main>
+        </div>
       </div>
     </>
   );
