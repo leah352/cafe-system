@@ -161,7 +161,7 @@ const Login = () => {
           font-weight: 400;
           letter-spacing: 0.26em;
           text-transform: uppercase;
-          color: var(--text-muted);
+          color: #e8c97a; /* yellow accent */
           margin: 0;
         }
 

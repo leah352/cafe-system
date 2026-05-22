@@ -60,3 +60,8 @@ body{
 }
 
 .panel .panel-body { padding: 12px; }
+
+/* Force form controls to use dark text for readability on light panels */
+input, select, textarea {
+  color: #111827;
+}

@@ -277,7 +277,7 @@ const AdminDashboard = () => {
         .product-form h3 {
           font-family: 'Playfair Display', serif;
           font-size: 18px;
-          color: var(--leaxie-accent);
+          color: #8b5e3c; /* brown to match other UI accents */
           margin: 0 0 20px;
           font-weight: 700;
           letter-spacing: 0.01em;
@@ -301,7 +301,7 @@ const AdminDashboard = () => {
           font-weight: 500;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--leaxie-accent-muted);
+          color: #8b5e3c; /* brown for better readability */
         }
 
         .form-input,

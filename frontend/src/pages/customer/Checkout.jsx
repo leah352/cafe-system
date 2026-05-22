@@ -144,6 +144,8 @@ const Checkout = () => {
         /* Leaxie overrides: checkout form uses sign-in beige panel */
         .checkout-form { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
         .checkout-form label, .checkout-form .order-summary { color: var(--text-dark) !important; }
+        /* Force input/select/textarea text to dark for readability */
+        .checkout-form input, .checkout-form select, .checkout-form textarea { color: #111827 !important; }
       `}</style>
 
       <div className="checkout-container">

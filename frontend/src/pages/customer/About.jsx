@@ -61,7 +61,7 @@ const About = () => {
 
         .about-title {
           font-family: 'Playfair Display', serif;
-          color: #e8c97a;
+          color: rgba(255,255,255,0.95); /* keep title white for contrast */
           font-size: 36px;
           margin: 0;
         }
@@ -137,9 +137,15 @@ const About = () => {
         .card, .panel, .panel .panel-body { background: var(--panel) !important; color: var(--text-dark) !important; border: 0.5px solid var(--panel-border) !important; }
         .card, .panel { border-radius: 10px !important; }
         .card svg, .panel svg, .card svg *, .panel svg * { stroke: var(--text-dark) !important; fill: var(--text-dark) !important; }
+        /* Utility to force dark text color for a block */
+        .dark-text, .dark-text * { color: #111827 !important; fill: #111827 !important; stroke: #111827 !important; }
+        /* Keep the about summary paragraph white for contrast */
+        .dark-text .about-sub { color: rgba(255,255,255,0.9) !important; }
+        /* Force About Us title white even when parent forces dark text */
+        .dark-text .about-title { color: rgba(255,255,255,0.95) !important; }
       `}</style>
 
-      <div style={{marginTop:20}}>
+      <div className="dark-text" style={{marginTop:20}}>
         <div className="about-hero">
           <div>
             <h1 className="about-title">About Us</h1>
@@ -152,7 +158,7 @@ const About = () => {
 
         <div className="profiles">
           <div className="card">
-            <AvatarWithSkeleton src="/images/leah.jpg" alt="Leah T. Rama" className="avatar" />
+            <img src="/images/leah.jpg" alt="Leah T. Rama" className="avatar" onError={handleImgError} />
             <div className="meta">
               <h3>Leah T. Rama</h3>
               <p>3rd Year Computer Science Student. Passionate about web apps, UX, and building delightful ordering experiences for customers.</p>
@@ -160,7 +166,7 @@ const About = () => {
           </div>
 
           <div className="card">
-            <AvatarWithSkeleton src="/images/dixie.jpg" alt="Dixie Joy Ortado" className="avatar" />
+            <img src="/images/dixie.jpg" alt="Dixie Joy Ortado" className="avatar" onError={handleImgError} />
             <div className="meta">
               <h3>Dixie Joy Ortado</h3>
               <p>3rd Year Computer Science Student. Focused on front-end design, accessibility, and creating consistent, polished interfaces.</p>
